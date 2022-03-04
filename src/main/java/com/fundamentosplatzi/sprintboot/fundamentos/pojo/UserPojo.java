@@ -8,7 +8,13 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 public class UserPojo {
     private String email;
     private String password;
-    private String age;
+    private int age;
+
+    public UserPojo(String email, String password, int age) {
+        this.email = email;
+        this.password = password;
+        this.age = age;
+    }
 
     public String getEmail() {
         return email;
@@ -26,17 +32,11 @@ public class UserPojo {
         this.password = password;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public UserPojo(String email, String password, String age) {
-        this.email = email;
-        this.password = password;
+    public void setAge(int age) {
         this.age = age;
     }
 }
