@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -54,20 +53,40 @@ public class FundamentosApplication implements CommandLineRunner {
     }
 
     private void getInformationJpqlFromUser() {
-        LOGGER.info("Usuario con el metodo findByUserEmail : " +
-                userRepository.findByUserEmail("andres@domain.com")
-                        .orElseThrow(() -> new RuntimeException("No se encontro el usuario.")));
+//        LOGGER.info("Usuario con el metodo findByUserEmail : " +
+//                userRepository.findByUserEmail("andres@domain.com")
+//                        .orElseThrow(() -> new RuntimeException("No se encontro el usuario.")));
+//
+//        userRepository.findAndSourt("A", Sort.by("id").descending())
+//                .stream()
+//                .forEach(user -> LOGGER.info("Usuario con metodo sort : " + user));
+//
+//        userRepository.findByName("John")
+//                .stream()
+//                .forEach(user -> LOGGER.info("Usuario con quey method : " + user.toString()));
+//
+//        LOGGER.info("Usuarion con query findByEmailAndName : " + userRepository.findByEmailAndName("julian@domain.com", "Julian")
+//                .orElseThrow(() -> new RuntimeException("Usuario no encontrado.")));
+//
+//        userRepository.findByNameLike("%J%")
+//                .stream()
+//                .forEach(user -> LOGGER.info("Usuario findByNameLike " + user));
+//
+//        userRepository.findByNameOrEmail(null,"jonas@domain.com")
+//                .stream()
+//                .forEach(user -> LOGGER.info("Usuario findByNameOrEmail " + user));
 
-        userRepository.findAndSourt("A", Sort.by("id").descending())
+        userRepository.findByBirthDateBetween(LocalDate.of(1089, 01, 01), LocalDate.of(2022, 12, 31))
                 .stream()
-                .forEach(user -> LOGGER.info("Usuario con metodo sort : " + user));
+                .forEach(user -> LOGGER.info("Ussuario con intervalo de fechas : " + user));
 
-        userRepository.findByName("John")
+        userRepository.findByNameLikeOrderByIdDesc("%J%")
                 .stream()
-                .forEach(user -> LOGGER.info("Usuario con quey method : " + user.toString()));
+                .forEach(user -> LOGGER.info("Usuario encontrado con like y ordernado : " + user));
 
-        LOGGER.info("Usuarion con query findByEmailAndName : " + userRepository.findByEmailAndName("julian@domain.com", "Julian")
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado.")));
+        userRepository.findByNameContainingOrderByIdAsc("J")
+                .stream()
+                .forEach(user -> LOGGER.info("Usuario encontrado con like y ordernado : " + user));
     }
 
     private void saveUsersInDataBase() {
