@@ -32,18 +32,18 @@ public class UserRestController {
         return getUser.getAll();
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<User> newUser(@RequestBody User newUser) {
         return ResponseEntity.status(HttpStatus.CREATED).body(createUser.save(newUser));
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         deleteUser.remove(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> replaceUser(@RequestBody User newUser, @PathVariable Long id) {
         return ResponseEntity.ok().body(updateUser.update(newUser, id));
     }
